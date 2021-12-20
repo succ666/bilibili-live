@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>reveal.js – The HTML Presentation Framework</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="Hakim El Hattab">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/black.css" id="theme">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="plugin/highlight/monokai.css">
+</head>
+
+<body>
+
+<div class="reveal">
+
+	<!-- Any section element inside of this container is displayed as a slide -->
+	<div class="slides">
+		<section>
+			<h1>Vue 代码风格指南</h1>
+		</section>
+
+		<section>
+			<h2>目录结构</h2>
+			<pre>
+				<code class="hljs" data-trim data-noescape data-line-numbers="2-5|6-8">
+					my-project-name
+					|- assets
+					|- components
+					|- pages
+					|- utils
+					|- app.vue
+					|- index.js
+					|- index.html
+  				</code>
+			</pre>
+		</section>
+
+		<section>
+            <section>
+				<h2>目录命名/文件命名</h2>
+				<p>推荐所有目录命名采用 <b>kebab-case（短横线连接式）</b> </p>
+				<p>推荐所有文件命名采用 <b>camelCase（小驼峰式命名法 —— 首字母小写）</b> </p>
+				<p>推荐所有vue组件命名采用 <b>PascalCase（大驼峰式命名法 —— 首字母大写）</b> </p>
+			</section>
+
+			<section>
+				<h2>它看上去就像是这样</h2>
+				<pre>
+				<code class="hljs" data-trim data-noescape data-line-numbers="2,4-5,7,9,12,15|3,6,8,10-11,13-14,16-20">
+					my-project-name
+					|- assets
+					|- - background-container.png
+					|- components
+					|- - header
+					|- - - Index.vue
+					|- - footer
+					|- - - Index.vue
+					|- - list
+					|- - - - LstHelp.vue
+					|- - - - Index.vue
+					|- pages
+					|- - Home.vue
+					|- - Details.vue
+					|- utils
+					|- - ua.js
+					|- - index.js
+					|- App.vue
+					|- index.js
+					|- index.html
+  				</code>
+			</pre>
+			</section>
+		</section>
+
+		<section>
+			<h2>Vue 单文件组件引用</h2>
+			<pre>
+				<code class="hljs" data-trim data-noescape data-line-numbers="2-3|5-8|12-13,17-20">
+&lt;template&gt;
+	// 组件内没有内容
+	&lt;empty-component /&gt;
+
+	// 组件标签之间有内容
+	&lt;container-component&gt;
+	    This is content.
+	&lt;/container-component&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import EmptyComponent from '../path';
+import ContainerComponent from '../../path';
+
+export default {
+	name: 'MyComponent',
+	components: {
+		EmptyComponent,
+		ContainerComponent
+	}
+}
+&lt;/script&gt;
+  				</code>
+			</pre>
+		</section>
+
+		<section>
+			<h2>Vue 单文件属性声明顺序</h2>
+			<pre>
+				<code class="hljs" data-trim data-noescape data-line-numbers>
+					&lt;script&gt;
+					export default {
+						name: 'MyComponent',
+						components: { },
+						mixins: [],
+						props: { },
+						data() { },
+						provide() { },
+						inject: [],
+						watch: { },
+						computed: { },
+						activated(): { },
+						deactivated(): { },
+						beforeCreate() { },
+						created() { },
+						beforeMount() { },
+						mounted() { },
+						beforeUpdate() { },
+						updated() { },
+						beforeDestroy() { },
+						destroyed() { },
+						methods: { }
+					}
+					&lt;/script&gt;
+  				</code>
+			</pre>
+		</section>
+
+		<section>
+			<h2>自定义事件</h2>
+			<p>@myEvent 会被自动转化成 @myevent</p>
+			<p>事件处理函数使用handle+动词</p>
+			<pre>
+				<code class="hljs" data-trim data-noescape data-line-numbers>
+					this.$emit('on-change');
+  				</code>
+			</pre>
+            <pre>
+				<code class="hljs" data-trim data-noescape data-line-numbers>
+                    &lt;my-component @on-change="handleChange" /&gt;
+  				</code>
+			</pre>
+		</section>
+
+		<section>
+			<h2>变量</h2>
+			<pre>
+				<code class="hljs" data-trim data-noescape data-line-numbers>
+					// bad
+					var curTitle = 'banxian';
+
+					// good
+					let curTitle = 'banxian';
+  				</code>
+			</pre>
+		</section>
+
+		<section>
+			<h2>常量</h2>
+			<pre>
+				<code class="hljs" data-trim data-noescape data-line-numbers>
+					// bad
+					const maxCount = 10;
+
+					// good
+					const MAX_COUNT = 10;
+  				</code>
+			</pre>
+		</section>
+
+		<section>
+			<h2>引号混用</h2>
+			<p>html模板中使用""</p>
+            <p>js中使用''</p>
+			<pre>
+				<code class="hljs" data-trim data-noescape data-line-numbers>
+					// bad
+					let name = "banxian";
+					let profession = 'front-end';
+
+					// good
+					let name = 'banxian';
+					let profession = 'front-end';
+  				</code>
+			</pre>
+			<pre>
+				<code class="hljs" data-trim data-noescape data-line-numbers>
+					// bad
+					&lt;my-component data-attributes='Single quotes' /&gt;
+
+					// good
+					&lt;my-component data-attributes="Double quotes" /&gt;
+  				</code>
+			</pre>
+		</section>
+
+		<section>
+			<h2>组件data声明为函数</h2>
+			<pre>
+				<code class="hljs" data-trim data-noescape data-line-numbers>
+					// bad
+					export default {
+						data: {
+							// ...
+						}
+					}
+
+					// good
+					export default {
+						data() {
+							return {
+								// ...
+							}
+						}
+					}
+  				</code>
+			</pre>
+		</section>
+
+		<section>
+			<h2>组件props声明详细</h2>
+			<pre>
+				<code class="hljs" data-trim data-noescape data-line-numbers>
+					// bad
+					export default {
+						props: ['name', 'age']
+					}
+
+					// good
+					export default {
+						props: {
+							name: {
+								type: String,
+								default: '半仙君_'
+							},
+							age: {
+								type: Number,
+								default: 18
+							}
+						}
+					}
+  				</code>
+			</pre>
+		</section>
+
+		<section>
+			<h2>组件computed一定要返回值</h2>
+			<pre>
+				<code class="hljs" data-trim data-noescape data-line-numbers>
+					// bad
+					export default {
+						computed: {
+							fullName() {
+								if (!this.firstName) return this.lastName;
+								if (this.firstName && this.lastName) return this.firstName + this.lastName;
+							}
+						}
+					}
+
+					// good
+					export default {
+						computed: {
+							fullName() {
+								if (!this.firstName) return this.lastName;
+								if (this.firstName && this.lastName) return this.firstName + this.lastName;
+								return '';
+							}
+						}
+					}
+  				</code>
+			</pre>
+		</section>
+
+		<section>
+			<h2>v-for要设置key</h2>
+			<p>并且最好有id作为key，而不是idx</p>
+			<pre>
+				<code class="hljs" data-trim data-noescape data-line-numbers="5,15">
+					// bad
+					&lt;ul&gt;
+						&lt;li/
+							v-for="(todo, idx) in todos"
+							:key="idx"
+						&gt;
+							{{ todo.text }}
+						&lt;/li&gt;
+					&lt;/ul&gt;
+
+					// good
+					&lt;ul&gt;
+						&lt;li/
+							v-for="(todo, idx) in todos"
+							:key="todo.id"
+						&gt;
+							{{ todo.text }}
+						&lt;/li&gt;
+					&lt;/ul&gt;
+  				</code>
+			</pre>
+		</section>
+
+		<section>
+			<h2>v-if和v-for互斥</h2>
+			<p>最好在另一个包裹元素上使用v-if</p>
+			<p>或者对v-for的列表进行过滤</p>
+			<pre>
+				<code class="hljs" data-trim data-noescape data-line-numbers="5,18">
+					// bad
+					&lt;ul&gt;
+						&lt;li/
+							v-for="(todo, idx) in todos"
+							v-if="showCurTodo"
+							:key="todo.id"
+						&gt;
+							{{ todo.text }}
+						&lt;/li&gt;
+					&lt;/ul&gt;
+
+					// good
+					&lt;ul&gt;
+						&lt;li/
+							v-for="(todo, idx) in todos"
+							:key="todo.id"
+						&gt;
+							&lt;div v-if="showCurTodo"&gt;{{ todo.text }}&lt;/div&gt;
+						&lt;/li&gt;
+					&lt;/ul&gt;
+  				</code>
+			</pre>
+		</section>
+
+		<section>
+			<h2>多个属性时多行来写</h2>
+			<pre>
+				<code class="hljs" data-trim data-noescape data-line-numbers="">
+					// bad
+					&lt;li class="item" v-for="(todo, idx) in todos" @click="handleClick" :key="todo.id" &gt;
+						{{ todo.text }}
+					&lt;/li&gt;
+
+					// good
+					&lt;li
+						class="item"
+						@click="handleClick"
+						v-for="(todo, idx) in todos"
+						:key="todo.id"
+					&gt;
+						{{ todo.text }}
+					&lt;/li&gt;
+  				</code>
+			</pre>
+		</section>
+
+		<section>
+			<h2>模板中应该只包含简单的表达式</h2>
+			<pre>
+				<code class="hljs" data-trim data-noescape data-line-numbers="">
+					// bad
+					{{
+						fullName.split(' ').map((word) => {
+							return word[0].toUpperCase() + word.slice(1)
+						}).join(' ')
+					}}
+
+					// good
+					{{ normalizedFullName }}
+
+					computed: {
+						normalizedFullName: function () {
+							return this.fullName.split(' ').map(function (word) {
+								return word[0].toUpperCase() + word.slice(1)
+							}).join(' ')
+						}
+					}
+  				</code>
+			</pre>
+		</section>
+
+		<section>
+			<h2>组件名为多个单词</h2>
+			<p>这能有效预防与html标准标签冲突</p>
+			<pre>
+				<code class="hljs" data-trim data-noescape data-line-numbers="">
+					// bad
+					Vue.component('Todo', {
+						// ...
+					})
+
+					// good
+					Vue.component('TodoList', {
+						// ...
+					})
+  				</code>
+			</pre>
+		</section>
+
+		<section>
+			<h2>组件样式声明尽可能设置作用域</h2>
+			<p>由于组件化开发很容易样式命名冲突</p>
+			<pre>
+				<code class="hljs" data-trim data-noescape data-line-numbers="">
+					// bad
+					button {
+						// ...
+					}
+
+					// good
+					.todo-list-btn {
+						// ...
+					}
+					.todo-list-btn .list-item {
+						// ...
+					}
+  				</code>
+			</pre>
+		</section>
+
+		<section>
+			<h2>单文件的顶级元素顺序</h2>
+			<pre>
+				<code class="hljs" data-trim data-noescape data-line-numbers="">
+&lt;!-- ComponentA.vue --&gt;
+&lt;template&gt;...&lt;/template&gt;
+&lt;script&gt;/* ... */&lt;/script&gt;
+&lt;style&gt;/* ... */&lt;/style&gt;
+
+&lt;!-- ComponentB.vue --&gt;
+&lt;template&gt;...&lt;/template&gt;
+&lt;script&gt;/* ... */&lt;/script&gt;
+&lt;style&gt;/* ... */&lt;/style&gt;
+  				</code>
+			</pre>
+		</section>
+
+		<section>
+			<h1>感谢大家 晚安</h1>
+		</section>
+	</div>
+</div>
+
+<script src="dist/reveal.js"></script>
+<script src="plugin/zoom/zoom.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/search/search.js"></script>
+<script src="plugin/markdown/markdown.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script>
+
+	// Also available as an ES module, see:
+	// https://revealjs.com/initialization/
+	Reveal.initialize({
+		controls: true,
+		progress: true,
+		center: true,
+		hash: true,
+
+		// Learn about plugins: https://revealjs.com/plugins/
+		plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+	});
+
+</script>
+
+</body>
+</html>
