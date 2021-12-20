@@ -1,0 +1,22 @@
+{
+  "name": "bilibili-live",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daoerche/bilibili-live.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daoerche/bilibili-live/issues"
+  },
+  "homepage": "https://github.com/daoerche/bilibili-live#readme",
+  "dependencies": {
+    "reveal.js": "^4.2.1"
+  }
+}
