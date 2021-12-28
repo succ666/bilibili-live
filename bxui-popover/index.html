@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>reveal.js – The HTML Presentation Framework</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="Hakim El Hattab">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="../reveal/dist/reset.css">
+	<link rel="stylesheet" href="../reveal/dist/reveal.css">
+	<link rel="stylesheet" href="../reveal/dist/theme/black.css" id="theme">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="../reveal/plugin/highlight/agate.css">
+</head>
+
+<body>
+
+<div class="reveal">
+
+	<!-- Any section element inside of this container is displayed as a slide -->
+	<div class="slides">
+		<section data-auto-animate>
+			<h1>Popover组件</h1>
+			<h2>基于Vue的UI组件库开发</h2>
+		</section>
+
+		<section data-auto-animate>
+			<h2>需要解决如下问题</h2>
+            <ul>
+				<li>如何传递弹窗内容和主题内容</li>
+				<li>如何切换Popover隐藏展示</li>
+				<li>如何获取插槽里面的元素</li>
+				<li>小三角形如何写</li>
+				<li>计算小三角形的位置居中</li>
+				<li>如何让pop在内容正上方</li>
+				<li>扩展话题</li>
+			</ul>
+		</section>
+
+			<section data-auto-animate data-markdown>
+				<textarea data-template>
+				## 如何传递弹窗内容和主题内容
+
+				```js []
+<div>
+    <transition>
+        <div>
+            <slot name="popover">弹窗内容</slot>
+        </div>
+    </transition>
+    <div>
+        <slot>主体内容</slot>
+    </div>
+</div>
+				```
+				</textarea>
+			</section>
+
+			<section data-auto-animate data-markdown>
+				<textarea data-template>
+				## 如何切换Popover隐藏展示
+
+				```js []
+<transition>
+    <div
+		ref="popper"
+		v-show="showPopper"
+	>
+        <slot name="popover"></slot>
+    </div>
+</transition>
+<div ref="wrapper">
+    <slot name="reference"></slot>
+</div>
+
+mounted() {
+    // ...
+    if (this.trigger === 'click') {
+        reference.addEventListener('click', this.doToggle, false);
+    }
+},
+methods: {
+    doToggle() {
+        this.showPopper = !this.showPopper;
+    }
+}
+				```
+
+				</textarea>
+			</section>
+
+			<section data-auto-animate data-markdown>
+			<textarea data-template>
+			## 如何获取插槽里面的元素
+
+			```js []
+// html
+<div ref="wrapper">
+    <slot name="reference"></slot>
+</div>
+
+// js
+const content = this.content = this.$refs.wrapper.children[0];
+			```
+
+			</textarea>
+			</section>
+
+			<section data-auto-animate data-markdown>
+			<textarea data-template>
+			## 小三角形如何写
+
+			```css []
+.popper-arrow {
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-top-color: #6fa8dc;
+    position: absolute;
+    bottom: -12px;
+}
+			```
+			</textarea>
+			</section>
+
+			<section data-auto-animate data-markdown>
+			<textarea data-template>
+			## 计算小三角形的位置居中
+
+			```css []
+.popover {
+    position: absolute;
+
+    .popper-arrow {
+        position: absolute;
+
+        left: 50%;
+        margin-left: -6px;
+    }
+}
+			```
+
+			</textarea>
+			</section>
+
+				<section data-auto-animate data-markdown>
+			<textarea data-template>
+			## 如何让pop在内容正上方
+
+			```html []
+<div class="popover-container">
+    // ...
+</div>
+
+.popover-container {
+    position: relative;
+}
+
+.popover {
+    left: 50%;
+}
+			```
+			</textarea>
+				</section>
+
+		<section data-auto-animate>
+			<h1>扩展</h1>
+		</section>
+
+		<section data-auto-animate>
+			<h1>感谢大家 晚安</h1>
+		</section>
+	</div>
+</div>
+
+<script src="../reveal/dist/reveal.js"></script>
+<script src="../reveal/plugin/zoom/zoom.js"></script>
+<script src="../reveal/plugin/notes/notes.js"></script>
+<script src="../reveal/plugin/search/search.js"></script>
+<script src="../reveal/plugin/markdown/markdown.js"></script>
+<script src="../reveal/plugin/highlight/highlight.js"></script>
+<script>
+
+	// Also available as an ES module, see:
+	// https://revealjs.com/initialization/
+	Reveal.initialize({
+		controls: true,
+		progress: true,
+		center: true,
+		hash: true,
+
+		// Learn about plugins: https://revealjs.com/plugins/
+		plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+	});
+
+</script>
+
+</body>
+</html>
