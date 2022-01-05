@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>reveal.js – The HTML Presentation Framework</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="Hakim El Hattab">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="../reveal/dist/reset.css">
+	<link rel="stylesheet" href="../reveal/dist/reveal.css">
+	<link rel="stylesheet" href="../reveal/dist/theme/black.css" id="theme">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="../reveal/plugin/highlight/agate.css">
+</head>
+
+<body>
+
+<div class="reveal">
+
+	<!-- Any section element inside of this container is displayed as a slide -->
+	<div class="slides">
+		<section data-auto-animate>
+			<h1>Switch组件</h1>
+			<h2>基于Vue的UI组件库开发</h2>
+		</section>
+
+		<section data-auto-animate  data-markdown>
+			<textarea data-template>
+				## switch组件基础结构
+
+				```html []
+<div class="switch">
+    <input type="checkbox" />
+    <span class="core"></span>
+</div>
+				```
+			</textarea>
+		</section>
+
+		<section data-auto-animate  id="fragments">
+			<h2>为什么要有个checkbox的input?</h2>
+			<p class="fragment">保持switch的语义化，其本质就是一个checkbox多选框</p>
+		</section>
+
+		<section data-auto-animate  data-markdown>
+			<textarea data-template>
+				## 如何隐藏掉input但又不完全隐藏
+
+				```css []
+input {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+				```
+			</textarea>
+		</section>
+
+		<section data-auto-animate  data-markdown>
+			<textarea data-template>
+				## 如何写那个球
+
+				```css []
+span.core:after {
+    content: "";
+    position: absolute;
+    border-radius: 100%;
+    transition: all .3s; // 当然不要忘了加上这个过度属性
+    width: 32px;
+    height: 32px;
+    background-color: #fff;
+}
+				```
+			</textarea>
+		</section>
+
+		<section data-auto-animate  data-markdown>
+			<textarea data-template>
+				## 如何点击switch改变状态
+
+				```js []
+<div class="switch" @click="handleClick">
+    <input type="checkbox" v-model="curChecked" />
+</div>
+
+handleClick() {
+    this.curChecked = !this.curChecked
+}
+				```
+			</textarea>
+		</section>
+
+		<section data-auto-animate  data-markdown>
+			<textarea data-template>
+				## 如何让球左右移动
+				```html [2]
+<div class="switch" @click="handleClick">
+    <span :class="['core', curChecked ? 'on' : 'off']"></span>
+</div>
+				```
+				```css []
+.core {
+    &.off {
+        &:after {
+            top: 2px;
+            left: 2px; // 通过修改left来使元素移动动画
+        }
+    }
+
+    &.on {
+        &:after {
+            top: 2px;
+            left: 100%; // 通过修改left来使元素移动动画
+            margin-left: -34px;
+        }
+    }
+
+    &:after {
+        position: absolute;
+        transition: all .3s; // 当然不要忘了加上这个过度属性
+    }
+}
+				```
+			</textarea>
+		</section>
+
+		<section data-auto-animate  data-markdown>
+			<textarea data-template>
+				## 如何写switch切换时的背景色动画
+				```html [2]
+<div class="switch" @click="handleClick">
+    <span :class="['core', curChecked ? 'on' : 'off']"></span>
+</div>
+				```
+				```css []
+.core {
+    transition: background-color .3s;
+
+    &.off {
+        background-color: indianred;
+    }
+
+    &.on {
+        background-color: lightgreen;
+    }
+}
+				```
+			</textarea>
+		</section>
+
+		<section data-auto-animate>
+			<h1>感谢大家 晚安</h1>
+			<h3>演讲稿 和 pdf版 以及 源码demo 都会在视频简介中放出</h3>
+		</section>
+	</div>
+</div>
+
+<script src="../reveal/dist/reveal.js"></script>
+<script src="../reveal/plugin/zoom/zoom.js"></script>
+<script src="../reveal/plugin/notes/notes.js"></script>
+<script src="../reveal/plugin/search/search.js"></script>
+<script src="../reveal/plugin/markdown/markdown.js"></script>
+<script src="../reveal/plugin/highlight/highlight.js"></script>
+<script>
+
+	// Also available as an ES module, see:
+	// https://revealjs.com/initialization/
+	Reveal.initialize({
+		controls: true,
+		progress: true,
+		center: true,
+		hash: true,
+
+		// Learn about plugins: https://revealjs.com/plugins/
+		plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+	});
+
+</script>
+
+</body>
+</html>

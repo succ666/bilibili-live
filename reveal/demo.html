@@ -33,6 +33,11 @@
 		</section>
 
 		<section data-auto-animate>
+			<h2>pdf打印</h2>
+            <p>http://localhost:8000/?print-pdf</p>
+		</section>
+
+		<section data-auto-animate>
             <section data-auto-animate>
 				<h2>这是演示1</h2>
 				<p>这是<b>演示1</b>的文本</p>
@@ -44,90 +49,27 @@
 			</section>
 		</section>
 
-		<section data-auto-animate>
-			<h2>Vue 单文件组件引用</h2>
-			<pre>
-				<code class="hljs" data-trim data-noescape data-line-numbers="2-3|5-8|12-13,17-20">
-&lt;template&gt;
-	// 组件内没有内容
-	&lt;empty-component /&gt;
-
-	// 组件标签之间有内容
-	&lt;container-component&gt;
-	    This is content.
-	&lt;/container-component&gt;
-&lt;/template&gt;
-
-&lt;script&gt;
-import EmptyComponent from '../path';
-import ContainerComponent from '../../path';
-
-export default {
-	name: 'MyComponent',
-	components: {
-		EmptyComponent,
-		ContainerComponent
-	}
-}
-&lt;/script&gt;
-  				</code>
-			</pre>
+		<section data-auto-animate  id="fragments">
+			<h2 class="fragment">step1</h2>
+			<p class="fragment">step2</p>
 		</section>
 
-		<section data-auto-animate>
-			<section data-auto-animate data-markdown>
-				<textarea data-template>
-				## Slide 1
-				这个就很强
+		<section data-auto-animate  data-markdown>
+			<textarea data-template>
+				## switch组件基础结构
 
-				```js [1-2|3|4]
-<template>
-	<my-component></my-component>
-</template>
-
-<script>
-watch: {
-	// 防抖
-	industryId(val) {
-		if (this.industryIdTimer) {
-			clearTimeout(this.industryIdTimer);
-		}
-		this.industryIdTimer = setTimeout(() => this.curSearchIndustryId = val, 100);
-	},
-	isSearchListRoute(val) {
-		if (val && this.curSearchIndustryId === CLASSIFY_DEFINE.ELECTRONIC) {
-			return document.title = '搜索';
-		}
-
-		if (val) {
-			return document.title = '找企业';
-		}
-
-		document.title = '行业圈';
-	},
-	$route: {
-		handler(to) {
-			this.updateInnerRoute(to);
-			this.clearSearchInput(to);
-		},
-		immediate: true
-	}
-}
-</script>
+				```html []
+<div class="switch">
+    <input type="checkbox" />
+    <span class="core"></span>
+</div>
 				```
-				</textarea>
-			</section>
-
-			<section data-auto-animate data-markdown>
-									<textarea data-template>
-				# 牛批
-				这个就很强
 			</textarea>
-			</section>
 		</section>
 
 		<section data-auto-animate>
 			<h1>感谢大家 晚安</h1>
+			<h3>演讲稿 和 pdf版 以及 源码demo 都会在视频简介中放出</h3>
 		</section>
 	</div>
 </div>
